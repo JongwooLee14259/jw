@@ -450,9 +450,11 @@
   // ── 경품 응모: 전화번호는 실험 데이터(D)에 넣지 않고, 이 기기에도 저장하지 않으며, 따로 전송 ──
   function prizeBox() {
     if (!C.PRIZE || !C.PRIZE.ENABLED) return "";
-    if (P.total_score < C.PRIZE.MIN_SCORE)
+    // 테스트 모드(?speed=)에서는 시간이 짧아 기준 점수에 못 미치므로 응모란을 항상 보여 줌 (test=1로 저장되어 추첨에서 제외)
+    if (P.total_score < C.PRIZE.MIN_SCORE && !P.test)
       return `<div class="prizebox"><h3>경품 추첨</h3><p>총점이 추첨 기준(${pts(C.PRIZE.MIN_SCORE)}점)에 미치지 못해 이번에는 응모할 수 없습니다. 참여해 주셔서 감사합니다.</p></div>`;
     return `<div class="prizebox" id="prize"><h3>경품 추첨 응모 (선택)</h3>
+      ${P.test ? '<p class="warn">테스트 모드: 기준 점수와 관계없이 응모란을 보여 줍니다. 테스트 응모는 추첨에서 제외됩니다.</p>' : ""}
       <p>총점이 ${pts(C.PRIZE.MIN_SCORE)}점 이상이라 추첨에 응모할 수 있습니다. 추첨으로 ${esc(prizeList())}을 드립니다.</p>
       <pre class="notice">${esc(C.TEXT.prizeNotice)}</pre>
       <label class="check"><input type="checkbox" id="pagree"> 위 내용에 동의하고 응모합니다.</label>
