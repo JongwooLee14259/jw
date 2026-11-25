@@ -74,7 +74,7 @@ window.CONFIG = {
     // apps_script/Code.gs의 TIERS도 같은 내용으로 맞추세요.
     TIERS: [
       { item: "황금올리브 치킨", count: 1 },
-      { item: "메가커피 쿠폰", count: 3 }
+      { item: "롯데리아 1만 원 쿠폰", count: 5 }
     ]
   },
 
